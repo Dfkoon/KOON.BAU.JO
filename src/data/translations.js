@@ -1,0 +1,300 @@
+export const translations = {
+    ar: {
+        // Navigation
+        home: "الرئيسية",
+        materials: "المواد الدراسية",
+        plans: "الخطط الدراسية",
+        exams: "الاختبارات",
+        calendar: "التقويم الأكاديمي",
+        grades: "نظام العلامات",
+        about: "من نحن",
+
+        // UI Helpers
+        search: "بحث",
+        searchPlaceholder: "ادخل اسم مادة ..",
+        viewDetails: "عرض التفاصيل",
+        download: "تحميل",
+        more: "المزيد",
+
+        // Home Page
+        heroTitle: "مرحبًا بك في مساعدات طلابية BAU",
+        heroSubtitle: "رفيقك الدراسي الأفضل للنجاح والتفوق",
+        exploreServices: "استكشف الخدمات",
+        contactUs: "تواصل معنا",
+        aiChatTitle: "Koon Bot 🤖",
+        botWelcome: "مرحباً! أنا Koon Bot، مساعدك الذكي. كيف يمكنني مساعدتك اليوم؟",
+        botUnknown: "عذراً، لم أفهم سؤالك تماماً. يمكنك اختيار أحد الأقسام أدناه أو إعادة صياغة السؤال.",
+        visitSection: "زيارة القسم",
+        // Home Page Content
+        urgent: "عاجل",
+        marqueeText: "تم إطلاق النسخة المحدثة من موقع مساعدات الطلابية BAU مع واجهة عصرية وتحسينات كثيرة",
+        upcomingEvents: "الأحداث القادمة",
+        servicesTitle: "خدمات الموقع",
+        learnMore: "تفاصيل",
+        goToService: "انتقل",
+
+        // Events
+        event1Title: "فترة السحب والإضافة",
+        event1Desc: "تبدأ فترة السحب والإضافة للفصل الدراسي الأول 2025/2026",
+        event2Title: "تأجيل الدراسة",
+        event2Desc: "آخر موعد لتقديم طلب تأجيل الدراسة الكترونياً",
+        event3Title: "الامتحانات النهائية",
+        event3Desc: "تبدأ الامتحانات النهائية للفصل الدراسي الأول",
+        monthSep: "سبتمبر",
+        monthOct: "أكتوبر",
+        monthJan: "يناير",
+
+        // Services
+        tutorials: "شروحات المواد",
+        grades_system: "حساب المعدل",
+        rooms: "القاعات الدراسية",
+
+        // Tree Plans
+        treePlansTitle: "الخطط الشجرية",
+        treePlansDesc: "أدخل اسم المادة التي ترغب في تنزيلها، وشاهد ما تفتحه من الخطة وما هو المطلب السابق لها.",
+        prerequisiteLabel: "المتطلب السابق:",
+        concurrentLabel: "المتطلب المتزامن:",
+        opensLabel: "المواد التي تفتحها:",
+        searchResultsFor: "نتائج البحث لـ:",
+
+        // Electronic Services
+        electronicServicesTitle: "الخدمات الإلكترونية",
+        regSystem: "نظام التسجيل",
+        regSystemDesc: "تسجيل المواد ومتابعة الجدول",
+        gradesSystem: "نظام العلامات",
+        gradesSystemDesc: "عرض العلامات والتقارير الأكاديمية",
+        studentGuide: "دليل الطالب",
+        studentGuideDesc: "كل ما يحتاجه الطالب من معلومات",
+        eLearning: "التعلم الإلكتروني",
+        eLearningDesc: "متابعة المحاضرات والمواد",
+        gpaCalc: "حساب المعدل",
+        gpaCalcDesc: "حساب المعدل التراكمي والفصلي",
+        evalSystem: "تقييم المدرسين",
+        evalSystemDesc: "تقييم أداء المدرسين",
+        visitSystem: "زيارة النظام",
+
+        // Dhikr
+        dhikrTitle: "أذكار الصباح والمساء",
+        dhikrSubtitle: "حصن نفسك وابدأ يومك بذكر الله.",
+        morningDhikr: "أذكار الصباح",
+        eveningDhikr: "أذكار المساء",
+        dhikrIntro: "أذكار الصباح والمساء هي من السنن النبوية التي تساعد على حماية النفس وتحصينها. إليك بعض الأذكار التي يمكنك ترديدها في كل صباح ومساء.",
+        dhikrReminder: "تذكر أن الأذكار ليست مجرد كلمات، بل هي وسيلة للتقرب إلى الله وزيادة الإيمان.",
+        popupTitle: "لا تنس أذكار الصباح والمساء!",
+        popupMessage: "اقرأ أذكارك اليومية الآن وابدأ يومك براحة وطمأنينة.",
+        popupLink: "عرض أذكار الصباح والمساء",
+
+        // Success Stories
+        storiesTitle: "جرعات أمل 🎙️",
+        storiesSubtitle: "استمع الآن إلى حلقة مليئة بالأمل والتفاؤل من بودكاست صعب، حيث يمكنك إضافة قصة نجاحك هنا.",
+        newEpisode: "حلقة جديدة 🎧",
+        podcastDesc: "استمع إلى حلقة مليئة بالأمل والتفاؤل من بودكاست صعب.",
+        addStory: "أضف قصتك",
+        addStoryDesc: "شاركنا قصة نجاحك لتكون مصدر إلهام وحافز للطلاب الآخرين.",
+        addStoryBtn: "أضف قصتك الآن",
+        materialsSubtitle: "استكشف جميع المواد والمصادر التعليمية",
+        universityRequirements: "متطلبات الجامعة الإجبارية",
+        universityElectives: "متطلبات الجامعة الاختيارية",
+        collegeRequirements: "متطلبات الكلية الإجبارية",
+        majorRequirements: "متطلبات التخصص الإجبارية",
+        supportRequirements: "علوم مساندة",
+        labsList: "قائمة المختبرات (Lab)",
+        remedialCourses: "قسم مواد الاستدراكي",
+        noSearchResults: "لا توجد نتائج بحث مطابقة لـ",
+        shareScience: "ساهم في نشر العلم",
+        shareScienceDesc: "هل لديك ملخصات أو أسئلة سنوات سابقة؟ شاركها معنا لنساعد زملاءك في دراستهم.",
+        contactWhatsapp: "تواصل عبر واتساب",
+        contactTelegram: "تواصل عبر تيليجرام",
+        previousRequirement: "المتطلب السابق",
+        concurrentRequirement: "المتطلب المتزامن",
+        opensCourses: "المواد التي تفتحها",
+        noPrereq: "لا يوجد",
+
+        // Exams Page
+        examsTitle: "صفحة الاختبارات",
+        examsSubtitle: "نماذج امتحانات سابقة وشروحات للسنوات الماضية",
+        selectCollege: "اختر الكلية",
+        selectDepartment: "اختر القسم",
+
+        // Plans Page
+        plansTitle: "الخطط الدراسية",
+        plansSubtitle: "تصفح الخطط الشجرية والاسترشادية لجميع التخصصات",
+        treePlans: "الخطط الشجرية",
+        guidancePlans: "الخطط الاسترشادية",
+        newPlans: "🌟 الخطط الجديدة",
+        oldPlans: "📜 الخطط القديمة",
+        downloadImage: "تحميل الصورة",
+        imagePlaceholder: "(صورة الخطة هنا)",
+
+        // Specializations
+        digitalForensics: "التحقيقات الجنائية الرقمية",
+        infoSec: "أمن المعلومات والفضاء الإلكتروني",
+        aiRobotics: "الذكاء الاصطناعي والروبوتات",
+        dataScience: "علم البيانات",
+        vr: "الواقع الافتراضي",
+        newSuffix: " - جديد",
+        oldSuffix: " - قديم",
+
+        // Strings in components
+        themeDark: "الوضع الليلي",
+        themeLight: "الوضع النهاري",
+        langAr: "العربية",
+        langEn: "English",
+
+        // Statistics
+        statisticsTitle: "إحصائيات المنصة",
+        beneficiariesCount: "عدد المستفيدين",
+        visitorsCount: "عدد الزوار",
+        volunteersCount: "عدد المتطوعين",
+        lecturesCount: "عدد المحاضرات"
+    },
+    en: {
+        // Navigation
+        home: "Home",
+        materials: "Materials",
+        plans: "Study Plans",
+        exams: "Tests",
+        calendar: "Academic Calendar",
+        grades: "Grade System",
+        about: "About Us",
+
+        // UI Helpers
+        search: "Search",
+        searchPlaceholder: "Enter course name...",
+        viewDetails: "View Details",
+        download: "Download",
+        more: "More",
+
+        // Home Page
+        heroTitle: "Welcome to BAU Student Assistant",
+        heroSubtitle: "Your best academic companion for success",
+        exploreServices: "Explore Services",
+        contactUs: "Contact Us",
+        aiChatTitle: "Koon Bot 🤖",
+        botWelcome: "Hello! I am Koon Bot, your smart assistant. How can I help you today?",
+        botUnknown: "Sorry, I didn't quite understand. You can choose a section below or rephrase.",
+        visitSection: "Visit Section",
+        // Home Page Content
+        urgent: "Urgent",
+        marqueeText: "The updated BAU Student Assistants website has been launched with a modern interface and many improvements",
+        upcomingEvents: "Upcoming Events",
+        servicesTitle: "Website Services",
+        learnMore: "Details",
+        goToService: "Go",
+
+        // Events
+        event1Title: "Add/Drop Period",
+        event1Desc: "Add/Drop period for the First Semester 2025/2026 begins",
+        event2Title: "Postponement of Studies",
+        event2Desc: "Deadline for submitting online study postponement requests",
+        event3Title: "Final Exams",
+        event3Desc: "Final exams for the First Semester begin",
+        monthSep: "September",
+        monthOct: "October",
+        monthJan: "January",
+
+        // Services
+        tutorials: "Course Tutorials",
+        grades_system: "GPA Calculator",
+        rooms: "Classrooms",
+
+        // Tree Plans
+        treePlansTitle: "Tree Plans",
+        treePlansDesc: "Enter the course name you want to register to see its prerequisites and what it opens.",
+        prerequisiteLabel: "Prerequisite:",
+        concurrentLabel: "Concurrent:",
+        opensLabel: "Unlocks:",
+        searchResultsFor: "Search results for:",
+
+        // Electronic Services
+        electronicServicesTitle: "Electronic Services",
+        regSystem: "Registration System",
+        regSystemDesc: "Course registration and schedule",
+        gradesSystem: "Grades System",
+        gradesSystemDesc: "View grades and academic reports",
+        studentGuide: "Student Guide",
+        studentGuideDesc: "All information a student needs",
+        eLearning: "E-Learning",
+        eLearningDesc: "Follow lectures and materials",
+        gpaCalc: "GPA Calculator",
+        gpaCalcDesc: "Calculate semester and cumulative GPA",
+        evalSystem: "Instructor Evaluation",
+        evalSystemDesc: "Evaluate instructor performance",
+        visitSystem: "Visit System",
+
+        // Dhikr
+        dhikrTitle: "Morning & Evening Adhkar",
+        dhikrSubtitle: "Fortify yourself and start your day with the remembrance of Allah.",
+        morningDhikr: "Morning Adhkar",
+        eveningDhikr: "Evening Adhkar",
+        dhikrIntro: "Morning and Evening Adhkar are Prophetic Sunnahs that help protect and fortify oneself. Here are some Adhkar you can recite every morning and evening.",
+        dhikrReminder: "Remember that Adhkar are not just words, but a means to draw closer to Allah and increase faith.",
+        popupTitle: "Don't forget your Adhkar!",
+        popupMessage: "Read your daily Adhkar now and start your day with peace and tranquility.",
+        popupLink: "View Morning & Evening Adhkar",
+
+        // Success Stories
+        storiesTitle: "Doses of Hope 🎙️",
+        storiesSubtitle: "Listen now to an episode full of hope and optimism from Saab Podcast, where you can add your success story here.",
+        newEpisode: "New Episode 🎧",
+        podcastDesc: "Listen to an episode full of hope and optimism from Saab Podcast.",
+        addStory: "Add Your Story",
+        addStoryDesc: "Share your success story to inspire and motivate other students.",
+        addStoryBtn: "Add Your Story Now",
+        materialsSubtitle: "Explore all courses and educational resources",
+        universityRequirements: "University Requirements",
+        universityElectives: "University Electives",
+        collegeRequirements: "College Requirements",
+        majorRequirements: "Major Requirements",
+        supportRequirements: "Support Courses",
+        labsList: "Laboratories List",
+        remedialCourses: "Remedial Courses",
+        noSearchResults: "No search results found for",
+        shareScience: "Contribute to Science",
+        shareScienceDesc: "Do you have summaries or past exams? Share them with us to help your colleagues.",
+        contactWhatsapp: "Contact via WhatsApp",
+        contactTelegram: "Contact via Telegram",
+        previousRequirement: "Prerequisite",
+        concurrentRequirement: "Concurrent",
+        opensCourses: "Unlocks",
+        noPrereq: "None",
+
+        // Exams Page
+        examsTitle: "Tests Page",
+        examsSubtitle: "Previous exams and explanations from past years",
+        selectCollege: "Select College",
+        selectDepartment: "Select Department",
+
+        // Plans Page
+        plansTitle: "Study Plans",
+        plansSubtitle: "Browse tree and guidance plans for all majors",
+        treePlans: "Tree Plans",
+        guidancePlans: "Guidance Plans",
+        newPlans: "🌟 New Plans",
+        oldPlans: "📜 Old Plans",
+        downloadImage: "Download Image",
+        imagePlaceholder: "(Plan Image Here)",
+
+        // Specializations
+        digitalForensics: "Digital Forensics",
+        infoSec: "Info. Security & Cyberspace",
+        aiRobotics: "AI & Robotics",
+        dataScience: "Data Science",
+        vr: "Virtual Reality",
+        newSuffix: " - New",
+        oldSuffix: " - Old",
+
+        // Strings in components
+        themeDark: "Dark Mode",
+        themeLight: "Light Mode",
+        langAr: "Arabic",
+        langEn: "English",
+
+        // Statistics
+        statisticsTitle: "Platform Statistics",
+        beneficiariesCount: "Beneficiaries",
+        visitorsCount: "Visitors",
+        volunteersCount: "Volunteers",
+        lecturesCount: "Lectures"
+    }
+};

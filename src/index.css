@@ -1,0 +1,51 @@
+/* src/index.css */
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap');
+
+body {
+  margin: 0;
+  font-family: 'Cairo', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: linear-gradient(135deg, #f1f8e9, #dcedc8);
+  /* Global Gradient */
+  min-height: 100vh;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* 3D & Animation Helpers */
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-20px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.floating-element {
+  animation: float 6s ease-in-out infinite;
+}
+
+.perspective-container {
+  perspective: 1000px;
+}
+
+.tilt-card {
+  transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.5s;
+  transform-style: preserve-3d;
+}
+
+.tilt-card:hover {
+  transform: rotateY(10deg) rotateX(10deg) scale(1.05);
+  /* Simple 3D Tilt */
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2) !important;
+  z-index: 10;
+}
