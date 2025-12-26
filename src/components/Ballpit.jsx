@@ -9,6 +9,7 @@ import {
     Vector2,
     Vector3,
     MeshPhysicalMaterial,
+    MeshStandardMaterial,
     ShaderChunk,
     Color,
     Object3D,
@@ -635,11 +636,18 @@ class Z extends InstancedMesh {
 
     constructor(renderer, params = {}) {
         const config = { ...XConfig, ...params };
+        const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
         const roomEnv = new RoomEnvironment();
         const pmrem = new PMREMGenerator(renderer);
         const envTexture = pmrem.fromScene(roomEnv).texture;
-        const geometry = new SphereGeometry();
-        const material = new Y({ envMap: envTexture, ...config.materialParams });
+        const geometry = isMobile ? new SphereGeometry(1, 16, 8) : new SphereGeometry();
+        const material = isMobile
+            ? new MeshStandardMaterial({
+                envMap: envTexture,
+                metalness: config.materialParams.metalness || 0.5,
+                roughness: config.materialParams.roughness || 0.5
+            })
+            : new Y({ envMap: envTexture, ...config.materialParams });
         material.envMapRotation.x = -Math.PI / 2;
         super(geometry, material, config.count);
         this.config = config;

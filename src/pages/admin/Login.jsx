@@ -18,11 +18,11 @@ export default function Login() {
             setError('');
             setLoading(true);
 
-            await login(email.trim(), password.trim());
+            await login(email, password);
             // The AuthContext will now have the user set.
             // We just need to wait a tiny bit or trust the role check.
             // Actually, we can check the email directly for admin navigation:
-            if (email.trim().toLowerCase() === 'admin' || email.trim().toLowerCase() === import.meta.env.VITE_ADMIN_EMAIL?.toLowerCase()) {
+            if (email.toLowerCase() === 'admin' || email.toLowerCase() === import.meta.env.VITE_ADMIN_EMAIL?.toLowerCase()) {
                 navigate('/admin/dashboard');
             } else {
                 navigate('/profile');
