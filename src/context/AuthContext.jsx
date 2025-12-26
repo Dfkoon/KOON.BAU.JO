@@ -20,6 +20,19 @@ export function AuthProvider({ children }) {
 
     // Listen to Firebase Auth state changes
     useEffect(() => {
+        // Check for local session first (for the hardcoded admin)
+        const localAdmin = localStorage.getItem('koon_admin_session');
+        if (localAdmin === 'true') {
+            setCurrentUser({
+                uid: 'admin-local',
+                email: 'admin@bau.koon',
+                displayName: 'Admin (Local)',
+                role: 'admin'
+            });
+            setLoading(false);
+            return;
+        }
+
         const unsubscribe = onAuthStateChanged(auth, async (user) => {
             if (user) {
                 // Check if the user is the Admin from Env
@@ -57,6 +70,19 @@ export function AuthProvider({ children }) {
     }, []);
 
     const login = (email, password) => {
+        const cleanEmail = email.trim().toLowerCase();
+        const cleanPassword = password.trim();
+
+        if (cleanEmail === 'admin' && cleanPassword === 'admin123') {
+            localStorage.setItem('koon_admin_session', 'true');
+            setCurrentUser({
+                uid: 'admin-local',
+                email: 'admin@bau.koon',
+                displayName: 'Admin (Local)',
+                role: 'admin'
+            });
+            return Promise.resolve();
+        }
         return signInWithEmailAndPassword(auth, email, password);
     };
 

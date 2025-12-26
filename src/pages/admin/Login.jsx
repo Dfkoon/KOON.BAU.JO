@@ -17,12 +17,12 @@ export default function Login() {
         try {
             setError('');
             setLoading(true);
-            const result = await login(email, password);
 
-            // Check admin based on Email directly (fastest check)
-            const isAdmin = email.toLowerCase() === import.meta.env.VITE_ADMIN_EMAIL?.toLowerCase();
-
-            if (isAdmin) {
+            await login(email.trim(), password.trim());
+            // The AuthContext will now have the user set.
+            // We just need to wait a tiny bit or trust the role check.
+            // Actually, we can check the email directly for admin navigation:
+            if (email.trim().toLowerCase() === 'admin' || email.trim().toLowerCase() === import.meta.env.VITE_ADMIN_EMAIL?.toLowerCase()) {
                 navigate('/admin/dashboard');
             } else {
                 navigate('/profile');
@@ -49,7 +49,7 @@ export default function Login() {
                         required
                         fullWidth
                         id="email"
-                        label="البريد الإلكتروني"
+                        label="اسم المستخدم"
                         name="email"
                         autoComplete="email"
                         autoFocus
