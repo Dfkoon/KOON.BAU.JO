@@ -21,16 +21,20 @@ export function AuthProvider({ children }) {
     // Listen to Firebase Auth state changes
     useEffect(() => {
         // Check for local session first (for the hardcoded admin)
-        const localAdmin = localStorage.getItem('koon_admin_session');
-        if (localAdmin === 'true') {
-            setCurrentUser({
-                uid: 'admin-local',
-                email: 'admin@bau.koon',
-                displayName: 'Admin (Local)',
-                role: 'admin'
-            });
-            setLoading(false);
-            return;
+        try {
+            const localAdmin = localStorage.getItem('koon_admin_session');
+            if (localAdmin === 'true') {
+                setCurrentUser({
+                    uid: 'admin-local',
+                    email: 'admin@bau.koon',
+                    displayName: 'Admin (Local)',
+                    role: 'admin'
+                });
+                setLoading(false);
+                return;
+            }
+        } catch (e) {
+            console.warn("LocalStorage access failed", e);
         }
 
         const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -74,7 +78,11 @@ export function AuthProvider({ children }) {
         const cleanPassword = password.trim();
 
         if (cleanEmail === 'admin' && cleanPassword === 'admin123') {
-            localStorage.setItem('koon_admin_session', 'true');
+            try {
+                localStorage.setItem('koon_admin_session', 'true');
+            } catch (e) {
+                console.warn("LocalStorage set failed", e);
+            }
             setCurrentUser({
                 uid: 'admin-local',
                 email: 'admin@bau.koon',
@@ -107,6 +115,11 @@ export function AuthProvider({ children }) {
     };
 
     const logout = () => {
+        try {
+            localStorage.removeItem('koon_admin_session');
+        } catch (e) {
+            console.warn("LocalStorage remove failed", e);
+        }
         return signOut(auth);
     };
 
