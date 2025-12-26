@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import { Box, Typography, Button, Chip, useTheme } from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import { Box, Typography, Button, Chip, useTheme, CircularProgress } from '@mui/material';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
     Lightbulb, Info, MedicalServices, Spa, CalendarMonth,
     SwapHoriz, Memory, Security, School, EmojiEvents,
     EventAvailable, Warning
 } from '@mui/icons-material';
-import { updatesData } from '../data/updatesData';
+import { updatesService } from '../services/updatesService';
 import { useLanguage } from '../context/LanguageContext';
 
 // Map icon strings to components
@@ -26,16 +26,33 @@ const iconMap = {
 };
 
 const LatestUpdates = () => {
+    const [updates, setUpdates] = useState([]);
+    const [loading, setLoading] = useState(true);
     const [filter, setFilter] = useState('all');
     const { language, t } = useLanguage();
     const theme = useTheme();
     const isAr = language === 'ar';
 
+    useEffect(() => {
+        const fetchUpdates = async () => {
+            const data = await updatesService.getAllUpdates();
+            // Sort by creation or date field
+            // Sort by date string if createdAt is missing, otherwise createdAt
+            data.sort((a, b) => {
+                if (b.createdAt && a.createdAt) return b.createdAt.seconds - a.createdAt.seconds;
+                return 0;
+            });
+            setUpdates(data);
+            setLoading(false);
+        };
+        fetchUpdates();
+    }, []);
+
     // Filter Logic
     const filteredData = filter === 'all'
-        ? updatesData
-        : updatesData.filter(item => {
-            const badgeAr = item.badge.ar;
+        ? updates
+        : updates.filter(item => {
+            const badgeAr = item.badge?.ar || '';
             const cat = item.category;
 
             if (filter === 'new') return badgeAr.includes('جديد');
@@ -45,6 +62,24 @@ const LatestUpdates = () => {
             if (filter === 'general') return cat === 'general' || cat === 'academic';
             return true;
         });
+
+    if (loading) {
+        return (
+            <Box sx={{ display: 'flex', justifyContent: 'center', py: 10 }}>
+                <CircularProgress />
+            </Box>
+        );
+    }
+
+    if (updates.length === 0) {
+        return (
+            <Box sx={{ textAlign: 'center', py: 10 }}>
+                <Typography variant="h6" color="text.secondary">
+                    {isAr ? 'لا توجد إعلانات حالياً.' : 'No updates available at the moment.'}
+                </Typography>
+            </Box>
+        );
+    }
 
     return (
         <Box
@@ -123,7 +158,7 @@ const LatestUpdates = () => {
                             }}>
                                 {/* Badge */}
                                 <Chip
-                                    label={item.badge[isAr ? 'ar' : 'en']}
+                                    label={item.badge?.[isAr ? 'ar' : 'en'] || item.badge?.ar || 'Update'}
                                     sx={{
                                         position: 'absolute',
                                         top: -15,
@@ -147,7 +182,7 @@ const LatestUpdates = () => {
                                 }}>
                                     <Box sx={{ flex: 1 }}> {/* Text Container */}
                                         <Typography variant="h6" sx={{ color: item.badgeColor, fontWeight: 'bold', fontSize: { xs: '1.1rem', md: '1.3rem' }, lineHeight: 1.4 }}>
-                                            {item.title[isAr ? 'ar' : 'en']}
+                                            {item.title?.[isAr ? 'ar' : 'en'] || item.title?.ar}
                                         </Typography>
                                         <Typography variant="caption" sx={{ color: 'text.secondary', display: 'block', mt: 0.5 }}>
                                             {isAr ? 'تاريخ النشر:' : 'Published:'} {item.date}
@@ -179,7 +214,7 @@ const LatestUpdates = () => {
                                     dangerouslySetInnerHTML={{
                                         __html: typeof item.content === 'string'
                                             ? item.content
-                                            : item.content[isAr ? 'ar' : 'en']
+                                            : (item.content?.[isAr ? 'ar' : 'en'] || item.content?.ar || '')
                                     }}
                                 />
 
@@ -189,7 +224,7 @@ const LatestUpdates = () => {
                                         <Box
                                             component="img"
                                             src={item.image}
-                                            alt={item.title[isAr ? 'ar' : 'en']}
+                                            alt={item.title?.[isAr ? 'ar' : 'en']}
                                             sx={{
                                                 maxWidth: '100%',
                                                 maxHeight: 400,

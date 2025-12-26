@@ -62,7 +62,7 @@ const Plans = () => {
             <TabPanel value={tabValue} index={0}>
                 <Grid container spacing={4} justifyContent="center" sx={{ mb: 4 }}>
                     {treePlans.map((plan, index) => (
-                        <Grid item xs={12} md={6} lg={4} key={index} sx={{ display: 'flex', justifyContent: 'center' }}>
+                        <Grid size={{ xs: 12, md: 6, lg: 4 }} key={index} sx={{ display: 'flex', justifyContent: 'center' }}>
                             <StudyPlanCard
                                 title={t(specializations[index])}
                                 image={plan.image}
@@ -90,7 +90,7 @@ const Plans = () => {
             <TabPanel value={tabValue} index={1}>
                 <Grid container spacing={4}>
                     {/* New Plans Column */}
-                    <Grid item xs={12} md={6}>
+                    <Grid size={{ xs: 12, md: 6 }}>
                         <Paper sx={{ p: 4, height: '100%', borderRadius: 2, bgcolor: theme.palette.mode === 'dark' ? 'background.paper' : '#f0f7ff' }}>
                             <Typography variant="h5" gutterBottom color="primary" fontWeight="bold">
                                 {t('newPlans')}
@@ -120,7 +120,7 @@ const Plans = () => {
                     </Grid>
 
                     {/* Old Plans Column */}
-                    <Grid item xs={12} md={6}>
+                    <Grid size={{ xs: 12, md: 6 }}>
                         <Paper sx={{ p: 4, height: '100%', borderRadius: 2, bgcolor: theme.palette.mode === 'dark' ? 'background.paper' : '#fff4e5' }}>
                             <Typography variant="h5" gutterBottom color="warning.main" fontWeight="bold" sx={{ color: '#ed6c02' }}>
                                 {t('oldPlans')}

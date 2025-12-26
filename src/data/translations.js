@@ -17,8 +17,8 @@ export const translations = {
         more: "المزيد",
 
         // Home Page
-        heroTitle: "مرحبًا بك في مساعدات طلابية BAU",
-        heroSubtitle: "رفيقك الدراسي الأفضل للنجاح والتفوق",
+        heroTitle: "مكــــــانك الجامعي",
+        heroSubtitle: "بوابتك الشاملة لكل ما تحتاجه في مسيرتك الدراسية",
         exploreServices: "استكشف الخدمات",
         contactUs: "تواصل معنا",
         aiChatTitle: "Koon Bot 🤖",
@@ -146,7 +146,77 @@ export const translations = {
         beneficiariesCount: "عدد المستفيدين",
         visitorsCount: "عدد الزوار",
         volunteersCount: "عدد المتطوعين",
-        lecturesCount: "عدد المحاضرات"
+        lecturesCount: "عدد المحاضرات",
+
+        // Useful Sites
+        usefulSites: "مواقع تفيدك",
+        usefulSitesTitle: "مواقع مفيدة للطالب",
+        visitSite: "زيارة الموقع",
+
+        // Categories
+        presentationsCategory: "عروض تقديمية (PowerPoint)",
+        summariesCategory: "تلخيص وأدوات ذكاء اصطناعي",
+        coursesCategory: "دورات تعليمية (Courses)",
+        designCategory: "تصميم ومصادر صور",
+
+        // Descriptions
+        canvaDesc: "أداة تصميم سهلة لإنشاء عروض تقديمية وتصاميم رائعة.",
+        slidesgoDesc: "قوالب عروض تقديمية جاهزة ومجانية لـ PowerPoint و Google Slides.",
+        pptDesc: "نسخة الويب المجانية من مايكروسوفت باوربوينت.",
+        quillbotDesc: "أداة لإعادة صياغة النصوص وتحسين الكتابة الإنجليزية.",
+        chatpdfDesc: "تحدث مع أي ملف PDF واستخرج المعلومات منه بسهولة.",
+        smallpdfDesc: "مجموعة أدوات للتعامل مع ملفات PDF (تحويل، ضغط، دمج).",
+        courseraDesc: "منصة تعليمية تقدم دورات من أفضل الجامعات والشركات العالمية.",
+        edraakDesc: "منصة عربية للمساقات الجماعية مفتوحة المصادر (MOOCs).",
+        udemyDesc: "منصة تعليمية وتدريبية عبر الإنترنت.",
+        freepikDesc: "محرك بحث عن القوالب والصور المتجهة (Vectors) المجانية.",
+        unsplashDesc: "مصدر للصور عالية الجودة والمجانية.",
+        flaticonDesc: "أكبر قاعدة بيانات للأيقونات المجانية.",
+
+        // GPA Calculator
+        gpaCalculatorTitle: "حاسبة المعدل",
+        studentToolsCategory: "أدوات الطالب",
+        currentSemester: "الفصل الحالي",
+        courseName: "اسم المادة",
+        hours: "الساعات",
+        grade: "العلامة",
+        addCourse: "إضافة مادة",
+        cumulativeInfo: "معلومات التراكمي",
+        optional: "اختياري",
+
+        // Student Tools
+        studentToolsTitle: "أدوات الطالب",
+        studentToolsSubtitle: "عزز إنتاجيتك مع هذه الأدوات المدمجة. حافظ على تركيزك وتنظيمك!",
+        pomodoroTitle: "المؤقت الدراسي (Pomodoro)",
+        focus: "تركيز",
+        shortBreak: "استراحة قصيرة",
+        todoTitle: "مهامي",
+        addTaskPlaceholder: "أضف مهمة جديدة...",
+        noTasks: "لا توجد مهام بعد. أضف واحدة لتبدأ!",
+
+        // Q&A System
+        askTitle: "صارحني (أسئلة مجهولة)",
+        askSubtitle: "أرسل استفسارك بسرية تامة وسنرد عليك.",
+        yourQuestion: "سؤالك",
+        sendQuestion: "إرسال السؤال",
+        questionSent: "تم إرسال السؤال بنجاح!",
+        qnaTitle: "لوحة الأسئلة والأجوبة",
+        qnaSubtitle: "إجابات على أسئلتكم المجهولة.",
+        noQuestions: "لا توجد أسئلة مجابة حتى الآن.",
+        adminQnA: "إدارة الأسئلة",
+        reply: "رد",
+        delete: "حذف",
+        status: "الحالة",
+        public: "منشور",
+        pending: "قيد الانتظار",
+        writeReply: "اكتب ردك هنا...",
+        submitReply: "نشر الرد",
+        prevGPA: "المعدل السابق",
+        prevHours: "الساعات السابقة",
+        calculate: "احسب المعدل",
+        semesterGPA: "المعدل الفصلي",
+        cumulativeGPA: "المعدل التراكمي",
+        gpaCalcDesc: "احسب معدلك الفصلي والتراكمي بسهولة."
     },
     en: {
         // Navigation
@@ -295,6 +365,76 @@ export const translations = {
         beneficiariesCount: "Beneficiaries",
         visitorsCount: "Visitors",
         volunteersCount: "Volunteers",
-        lecturesCount: "Lectures"
+        lecturesCount: "Lectures",
+
+        // Useful Sites
+        usefulSites: "Useful Sites",
+        usefulSitesTitle: "Useful Websites for Students",
+        visitSite: "Visit Site",
+
+        // Categories
+        presentationsCategory: "Presentations (PowerPoint)",
+        summariesCategory: "Summaries & AI Tools",
+        coursesCategory: "Online Courses",
+        designCategory: "Design & Assets",
+
+        // Descriptions
+        canvaDesc: "Easy design tool for creating great presentations and graphics.",
+        slidesgoDesc: "Free ready-to-use templates for PowerPoint and Google Slides.",
+        pptDesc: "Free web version of Microsoft PowerPoint.",
+        quillbotDesc: "Paraphrasing tool to rewrite and improve English writing.",
+        chatpdfDesc: "Chat with any PDF file and extract information easily.",
+        smallpdfDesc: "Tools to handle PDF files (convert, compress, merge).",
+        courseraDesc: "Learning platform offering courses from top universities.",
+        edraakDesc: "Arabic platform for Massive Open Online Courses (MOOCs).",
+        udemyDesc: "Online learning and teaching marketplace.",
+        freepikDesc: "Search engine for free vectors, PSDs, and photos.",
+        unsplashDesc: "Source for high-quality, free images.",
+        flaticonDesc: "Largest database of free icons.",
+
+        // GPA Calculator
+        gpaCalculatorTitle: "GPA Calculator",
+        studentToolsCategory: "Student Tools",
+        currentSemester: "Current Semester",
+        courseName: "Course Name",
+        hours: "Hours",
+        grade: "Grade",
+        addCourse: "Add Course",
+        cumulativeInfo: "Cumulative Info",
+        optional: "Optional",
+
+        // Student Tools
+        studentToolsTitle: "Student Tools",
+        studentToolsSubtitle: "Boost your productivity with these built-in tools. Stay focused and organized!",
+        pomodoroTitle: "Pomodoro Focused Timer",
+        focus: "Focus",
+        shortBreak: "Short Break",
+        todoTitle: "My Tasks",
+        addTaskPlaceholder: "Add a new task...",
+        noTasks: "No tasks yet. Add one to get started!",
+        prevGPA: "Previous GPA",
+        prevHours: "Previous Hours",
+        calculate: "Calculate",
+        semesterGPA: "Semester GPA",
+        cumulativeGPA: "Cumulative GPA",
+        gpaCalcDesc: "Calculate your semester and cumulative GPA easily.",
+
+        // Q&A System
+        askTitle: "Anonymous Q&A",
+        askSubtitle: "Send your questions anonymously and we'll answer them.",
+        yourQuestion: "Your Question",
+        sendQuestion: "Send Question",
+        questionSent: "Question sent successfully!",
+        qnaTitle: "Q&A Board",
+        qnaSubtitle: "Answers to your anonymous questions.",
+        noQuestions: "No answered questions yet.",
+        adminQnA: "Manage Q&A",
+        reply: "Reply",
+        delete: "Delete",
+        status: "Status",
+        public: "Public",
+        pending: "Pending",
+        writeReply: "Write your reply...",
+        submitReply: "Submit Reply"
     }
 };

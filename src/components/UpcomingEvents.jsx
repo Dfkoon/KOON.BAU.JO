@@ -23,18 +23,22 @@ const UpcomingEvents = () => {
             let fetchedEvents = [];
             try {
                 // 1. Try fetching from Firestore
-                const querySnapshot = await getDocs(collection(db, "events"));
-                const dbEvents = querySnapshot.docs.map(doc => ({
-                    id: doc.id,
-                    ...doc.data(),
-                    // Adapt fields: DB uses 'title', component uses 'event'/'eventEn'
-                    // We need to normalize or handle both
-                    event: doc.data().title,
-                    eventEn: doc.data().description || doc.data().title, // Fallback
-                    endDate: doc.data().date, // Assuming date string for now
-                    type: 'academic' // Default type for custom events
-                }));
-                fetchedEvents = dbEvents;
+                if (db) {
+                    const querySnapshot = await getDocs(collection(db, "events"));
+                    const dbEvents = querySnapshot.docs.map(doc => ({
+                        id: doc.id,
+                        ...doc.data(),
+                        // Adapt fields: DB uses 'title', component uses 'event'/'eventEn'
+                        // We need to normalize or handle both
+                        event: doc.data().title,
+                        eventEn: doc.data().description || doc.data().title, // Fallback
+                        endDate: doc.data().date, // Assuming date string for now
+                        type: 'academic' // Default type for custom events
+                    }));
+                    fetchedEvents = dbEvents;
+                } else {
+                    console.warn("Firestore not initialized, skipping dynamic events.");
+                }
             } catch (err) {
                 console.log("Firestore fetch failed, using static data", err);
             }

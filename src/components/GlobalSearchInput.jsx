@@ -84,7 +84,6 @@ const GlobalSearchInput = () => {
                             overflowY: 'auto',
                             borderRadius: '12px',
                             bgcolor: 'background.paper',
-                            right: 'auto', // Reset right
                             // For RTL support if needed, or keeping it centered relative to input
                             '@media (max-width: 600px)': {
                                 position: 'fixed',

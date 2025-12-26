@@ -1,56 +1,110 @@
 import React, { useEffect } from 'react';
 import ShinyHeader from '../components/ui/ShinyHeader';
-import { Box, Container, Typography, Paper } from '@mui/material';
-import { Engineering } from '@mui/icons-material';
+import { Box, Container, Typography } from '@mui/material';
 import { useLanguage } from '../context/LanguageContext';
+import CourseSection from '../components/CourseSection';
+import { examsList } from '../data/examsData';
 
 const Exams = () => {
-    const { language } = useLanguage();
+    const { language, t } = useLanguage();
+    const [searchTerm, setSearchTerm] = React.useState('');
 
     useEffect(() => {
-        document.title = "صفحة الاختبارات | KOON.BAU";
-    }, []);
+        document.title = (language === 'ar' ? "الاختبارات" : "Exams") + " | KOON.BAU";
+    }, [language]);
+
+    const isRtl = language === 'ar';
+
+    // Helper to filter exams
+    const filterExams = (list) => {
+        if (!searchTerm) return list;
+        const term = searchTerm.toLowerCase();
+        return list.filter(item => {
+            if (typeof item.title === 'object') {
+                return (item.title.ar && item.title.ar.toLowerCase().includes(term)) ||
+                    (item.title.en && item.title.en.toLowerCase().includes(term));
+            }
+            return item.title.toLowerCase().includes(term);
+        });
+    };
 
     return (
-        <Container maxWidth="md" sx={{ py: 10 }}>
-            <Paper
-                elevation={0}
-                sx={{
-                    p: 6,
+        <Box sx={{ display: 'flex', direction: isRtl ? 'rtl' : 'ltr', flexDirection: 'column', width: '100%' }}>
+            {/* Main Content */}
+            <Box component="main" sx={{ flexGrow: 1, p: 0, width: '100%', minHeight: '100vh', paddingBottom: '100px' }}>
+
+                {/* Hero Section */}
+                <Box sx={{
                     textAlign: 'center',
-                    borderRadius: 4,
-                    bgcolor: 'background.paper',
-                    border: '1px solid',
-                    borderColor: 'divider',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    gap: 3
-                }}
-            >
-                <Box
-                    sx={{
-                        width: 80,
-                        height: 80,
-                        bgcolor: 'primary.light',
-                        borderRadius: '50%',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        mb: 2,
-                        opacity: 0.2
-                    }}
-                >
-                    <Engineering sx={{ fontSize: 40, color: 'primary.main' }} />
+                    pt: 8,
+                    pb: 4,
+                    bgcolor: 'background.default',
+                    color: 'text.primary',
+                    mb: 2
+                }}>
+                    <Container>
+                        <ShinyHeader text={language === 'ar' ? "الاختبارات والسنوات" : "Exams & Past Papers"} variant="h3" sx={{ fontWeight: 'bold', color: 'primary.main' }} />
+                        <Typography variant="h6" sx={{ maxWidth: 600, mx: 'auto', opacity: 0.8, color: 'text.secondary', mt: 2 }}>
+                            {language === 'ar' ? "نماذج اختبارات وكويزات سابقة لمساعدتك في الدراسة" : "Previous exams and quizzes to help you study"}
+                        </Typography>
+                    </Container>
                 </Box>
 
-                <ShinyHeader text="قريباً" variant="h4" sx={{ color: 'primary.main' }} />
+                {/* Sticky Search Bar */}
+                <Box sx={{
+                    position: 'sticky',
+                    top: 20,
+                    zIndex: 100,
+                    mx: 2,
+                    mb: 6,
+                    display: 'flex',
+                    justifyContent: 'center'
+                }}>
+                    <Box sx={{
+                        width: '100%',
+                        maxWidth: 600,
+                        bgcolor: 'background.paper',
+                        borderRadius: '50px',
+                        boxShadow: 3,
+                        p: 1,
+                        border: '1px solid',
+                        borderColor: 'divider'
+                    }}>
+                        <input
+                            type="text"
+                            placeholder={language === 'ar' ? "ابحث عن مادة..." : "Search for a subject..."}
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                            style={{
+                                width: '100%',
+                                border: 'none',
+                                outline: 'none',
+                                background: 'transparent',
+                                padding: '12px 24px',
+                                fontSize: '1.1rem',
+                                textAlign: 'center',
+                                fontFamily: 'inherit',
+                                direction: isRtl ? 'rtl' : 'ltr',
+                                color: 'inherit'
+                            }}
+                        />
+                    </Box>
+                </Box>
 
-                <Typography variant="h6" color="text.secondary" sx={{ maxWidth: 500, lineHeight: 1.6 }}>
-                    سوف يتم اضافة كويزات قريبا انتظرونا
-                </Typography>
-            </Paper>
-        </Container>
+                <Container maxWidth="lg">
+                    {examsList.length > 0 ? (
+                        <CourseSection
+                            title={language === 'ar' ? "المواد المتوفرة" : "Available Subjects"}
+                            courses={filterExams(examsList)}
+                        />
+                    ) : (
+                        <Typography align="center" variant="h6" color="text.secondary">
+                            {language === 'ar' ? "لا توجد مواد حالياً" : "No subjects available yet"}
+                        </Typography>
+                    )}
+                </Container>
+            </Box>
+        </Box>
     );
 };
 

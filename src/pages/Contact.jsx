@@ -14,19 +14,19 @@ const Contact = () => {
 
       <Box component="form" sx={{ mt: 3 }}>
         <Grid container spacing={2}>
-          <Grid item xs={12} sm={6}>
+          <Grid size={{ xs: 12, sm: 6 }}>
             <TextField fullWidth label="الاسم الأول" variant="outlined" />
           </Grid>
-          <Grid item xs={12} sm={6}>
+          <Grid size={{ xs: 12, sm: 6 }}>
             <TextField fullWidth label="الاسم الأخير" variant="outlined" />
           </Grid>
-          <Grid item xs={12}>
+          <Grid size={{ xs: 12 }}>
             <TextField fullWidth label="البريد الإلكتروني" variant="outlined" type="email" />
           </Grid>
-          <Grid item xs={12}>
+          <Grid size={{ xs: 12 }}>
             <TextField fullWidth label="رسالتك" variant="outlined" multiline rows={4} />
           </Grid>
-          <Grid item xs={12}>
+          <Grid size={{ xs: 12 }}>
             <Button type="submit" variant="contained" color="primary" size="large">
               إرسال الرسالة
             </Button>

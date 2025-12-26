@@ -15,6 +15,10 @@ export const LanguageProvider = ({ children }) => {
     }, [language]);
 
     const t = (key) => {
+        if (!translations[language]) {
+            console.warn(`Language '${language}' not found in translations, falling back to 'ar'`);
+            return translations['ar']?.[key] || key;
+        }
         return translations[language][key] || key;
     };
 

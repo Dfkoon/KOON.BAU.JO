@@ -3,6 +3,7 @@ import { Box, Container, Typography, Button, Grid, Card, CardContent, Chip, Card
 import { useLanguage } from '../context/LanguageContext';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import ErrorBoundary from '../components/ErrorBoundary';
 
 // Components
 // Components
@@ -13,10 +14,11 @@ import ShinyHeader from '../components/ui/ShinyHeader';
 import MorningEveningDhikr from '../components/MorningEveningDhikr'; // CHANGED: New Component
 import ElectronicServices from '../components/ElectronicServices';
 import StatisticsSection from '../components/StatisticsSection';
-import SuccessStories from '../components/SuccessStories';
-import TestimonialsSection from '../components/TestimonialsSection';
-import FAQSection from '../components/FAQSection';
+import CleanTestimonials from '../components/CleanTestimonials';
+import TestimonialForm from '../components/TestimonialForm';
 import SmartToast from '../components/SmartToast';
+
+import { toast } from 'react-hot-toast';
 
 import {
     School,
@@ -29,6 +31,8 @@ import {
 
 // --- Local Components ---
 import AnimatedHero from '../components/AnimatedHero';
+
+// ...
 
 const MarqueeSection = () => {
     const { t, language } = useLanguage();
@@ -86,53 +90,37 @@ const MarqueeSection = () => {
     );
 };
 
-
-
 const Hero = () => {
     const { t } = useLanguage();
     return (
         <AnimatedHero>
             <Box id="hero" sx={{
-                pt: 15,
-                pb: 10,
-                // background: 'linear-gradient(135deg, #f0f4c3 0%, #fff 100%)', // Removed old background
                 position: 'relative',
+                minHeight: '600px', // Ensure height
                 overflow: 'hidden',
-                color: 'text.primary' // Revert to dark text for light background
+                color: 'text.primary', // Restore standard text color for white bg
+                display: 'flex',
+                alignItems: 'center',
+                pt: 10
             }}>
-
-                <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1, pointerEvents: 'none' }}> {/* Content on top */}
-                    <Grid container spacing={4} alignItems="center">
-                        <Grid item xs={12} md={6} data-aos="fade-left">
-                            <Typography variant="h2" sx={{ fontWeight: 800, mb: 3, color: 'primary.main' }}> {/* Primary color */}
+                {/* Content Overlay */}
+                <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
+                    <Grid container spacing={4} alignItems="center" justifyContent="center">
+                        <Grid size={{ xs: 12, md: 10 }} data-aos="fade-up" sx={{ textAlign: 'center' }}>
+                            <Typography variant="h2" sx={{ fontWeight: 800, mb: 3, color: 'inherit' }}>
                                 {t('heroTitle')}
                             </Typography>
-                            <Typography variant="h5" sx={{ mb: 4, opacity: 0.9, lineHeight: 1.6, color: 'text.secondary' }}> {/* Secondary color */}
+                            <Typography variant="h5" sx={{ mb: 4, opacity: 0.95, lineHeight: 1.6, color: 'text.secondary' }}>
                                 {t('heroSubtitle')}
                             </Typography>
-                            <Box sx={{ display: 'flex', gap: 2, pointerEvents: 'auto' }}> {/* Enable pointer events for buttons */}
-                                <Button variant="contained" size="large" sx={{ borderRadius: 8, px: 4, bgcolor: '#00ccb1', '&:hover': { bgcolor: '#00b39b' } }} href="#services">
+                            <Box sx={{ display: 'flex', gap: 2, justifyContent: 'center', pointerEvents: 'auto' }}>
+                                <Button variant="contained" size="large" sx={{ borderRadius: 8, px: 4, bgcolor: '#ffd700', color: 'black', '&:hover': { bgcolor: '#ffea00' } }} href="#services">
                                     {t('exploreServices')}
                                 </Button>
                                 <Button variant="outlined" size="large" sx={{ borderRadius: 8, px: 4, color: 'primary.main', borderColor: 'primary.main', '&:hover': { bgcolor: 'rgba(0,0,0,0.05)' } }} href="#contact">
                                     {t('contactUs')}
                                 </Button>
                             </Box>
-                        </Grid>
-                        <Grid item xs={12} md={6} data-aos="fade-right" sx={{ textAlign: 'center' }}>
-                            <Box
-                                component="img"
-                                src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
-                                alt="Student Life"
-                                sx={{
-                                    width: '100%',
-                                    maxWidth: 500,
-                                    borderRadius: '30px',
-                                    boxShadow: '0 20px 40px rgba(0,0,0,0.1)', // Lighter shadow
-                                    transform: 'rotate(-2deg)'
-                                }}
-                                className="floating-element"
-                            />
                         </Grid>
                     </Grid>
                 </Container>
@@ -158,7 +146,7 @@ const ServicesSection = () => {
                 <ShinyHeader text={t('servicesTitle')} />
                 <Grid container spacing={4}>
                     {servicesData.map((service, index) => (
-                        <Grid item xs={12} sm={6} md={4} key={index} className="perspective-container">
+                        <Grid size={{ xs: 12, sm: 6, md: 4 }} key={index} className="perspective-container">
                             <Card className="tilt-card" sx={{ height: '100%', borderRadius: 4, textAlign: 'center', py: 3, transition: '0.3s' }} data-aos="fade-up" data-aos-delay={index * 100}>
                                 <CardContent>
                                     <Box sx={{ color: 'primary.main', mb: 2 }}>{service.icon}</Box>
@@ -207,9 +195,11 @@ export default function Home() {
             <ElectronicServices />
             <StatisticsSection />
             <MorningEveningDhikr /> {/* CHANGED: Replaced DhikrSection */}
-            <SuccessStories />
-            <TestimonialsSection />
-            <FAQSection />
+            <CleanTestimonials />
+            <TestimonialForm />
+
+
+
             <SmartToast />
         </Box>
     );

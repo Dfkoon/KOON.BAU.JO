@@ -7,8 +7,9 @@ import { useColorMode } from '../context/ThemeContext';
 import AnimatedLogo from './AnimatedLogo';
 import ThemeSwitch from './ThemeSwitch';
 import GlobalSearchInput from './GlobalSearchInput';
+import HamburgerButton from './HamburgerButton';
 
-const Navbar = ({ onMenuClick }) => {
+const Navbar = ({ onMenuClick, isOpen }) => {
     const [scrolled, setScrolled] = useState(false);
     const { toggleLanguage, language, t } = useLanguage();
     const { toggleColorMode, mode } = useColorMode();
@@ -26,7 +27,7 @@ const Navbar = ({ onMenuClick }) => {
     }, []);
 
     return (
-        <AppBar position="fixed" sx={{ bgcolor: scrolled ? 'rgba(255,255,255,0.95)' : 'rgba(255,255,255,0.95)', boxShadow: scrolled ? 4 : 1, color: '#333', py: 1, transition: 'all 0.3s' }}>
+        <AppBar position="fixed" sx={{ bgcolor: scrolled ? 'rgba(255,255,255,0.95)' : 'rgba(255,255,255,0.95)', boxShadow: scrolled ? 4 : 1, color: '#333', py: 1, transition: 'all 0.3s', zIndex: (theme) => theme.zIndex.drawer + 1 }}>
             <Toolbar dir={language === 'ar' ? 'rtl' : 'ltr'}>
                 <Box sx={{ flexGrow: 1, cursor: 'pointer', display: 'flex', justifyContent: language === 'ar' ? 'flex-start' : 'flex-start' }} onClick={() => navigate('/')}>
                     <AnimatedLogo size={logoSize} />
@@ -39,6 +40,9 @@ const Navbar = ({ onMenuClick }) => {
                     <Button onClick={() => navigate('/exams')}>{t('exams')}</Button>
                     <Button onClick={() => navigate('/calendar')}>{language === 'ar' ? 'التقويم الجامعي' : 'Calendar'}</Button>
                     <Button onClick={() => navigate('/grading-system')}>{language === 'ar' ? 'نظام العلامات' : 'Grading System'}</Button>
+                    <Button onClick={() => navigate('/tools')}>{t('studentToolsTitle')}</Button>
+                    <Button onClick={() => navigate('/useful-sites')}>{t('usefulSites')}</Button>
+                    <Button onClick={() => navigate('/ask')}>{t('askTitle')}</Button>
                     <Button onClick={() => navigate('/updates')}>{language === 'ar' ? 'الأخبار' : 'News'}</Button>
                 </Box>
 
@@ -50,9 +54,9 @@ const Navbar = ({ onMenuClick }) => {
                     <ThemeSwitch checked={mode === 'dark'} onChange={toggleColorMode} />
                 </Box>
 
-                <IconButton edge="start" color="inherit" aria-label="menu" onClick={onMenuClick} sx={{ display: { xs: 'flex', md: 'none' }, ml: language === 'ar' ? 0 : 1, mr: language === 'ar' ? 1 : 0 }}>
-                    <MenuIcon />
-                </IconButton>
+                <Box sx={{ display: { xs: 'flex', md: 'none' }, ml: language === 'ar' ? 0 : 1, mr: language === 'ar' ? 1 : 0 }}>
+                    <HamburgerButton onClick={onMenuClick} isOpen={isOpen} />
+                </Box>
             </Toolbar>
         </AppBar>
     );

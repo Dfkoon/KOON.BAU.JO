@@ -21,7 +21,7 @@ const ElectronicServices = () => {
                 <ShinyHeader text={t('electronicServicesTitle')} />
                 <Grid container spacing={3}>
                     {services.map((service, index) => (
-                        <Grid item xs={12} sm={6} md={4} key={index}>
+                        <Grid size={{ xs: 12, sm: 6, md: 4 }} key={index}>
                             <Card sx={{
                                 height: '100%',
                                 textAlign: 'center',

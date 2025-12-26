@@ -10,7 +10,7 @@ const Dashboard = () => {
     <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
       <ShinyHeader text="لوحة التحكم الخاصة بك" variant="h3" />
       <Grid container spacing={3}>
-        <Grid item xs={12} md={8}>
+        <Grid size={{ xs: 12, md: 8 }}>
           <Card>
             <CardContent>
               <Typography variant="h6" gutterBottom>مهامي القادمة</Typography>
@@ -22,7 +22,7 @@ const Dashboard = () => {
             </CardContent>
           </Card>
         </Grid>
-        <Grid item xs={12} md={4}>
+        <Grid size={{ xs: 12, md: 4 }}>
           <Card>
             <CardContent>
               <Typography variant="h6" gutterBottom>آخر الإعلانات</Typography>

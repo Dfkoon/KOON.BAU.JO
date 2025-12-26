@@ -23,7 +23,7 @@ export const ColorModeProvider = ({ children }) => {
         palette: {
             mode,
             primary: {
-                main: mode === 'light' ? '#506400' : '#8bc34a', // Dark Green / Light Green
+                main: mode === 'light' ? '#1976d2' : '#90caf9', // Blue / Light Blue
             },
             secondary: {
                 main: mode === 'light' ? '#f1c40f' : '#ffeb3b', // Yellow

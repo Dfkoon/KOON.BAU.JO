@@ -6,19 +6,31 @@ import { getFirestore } from "firebase/firestore";
 // TODO: Replace with your Firebase project configuration
 // You can find these in the Firebase Console: Project Settings -> General -> Your apps
 const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-    projectId: "YOUR_PROJECT_ID",
-    storageBucket: "YOUR_PROJECT_ID.appspot.com",
-    messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-    appId: "YOUR_APP_ID"
+    apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+    authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+    projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+    storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+    appId: import.meta.env.VITE_FIREBASE_APP_ID
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+let app;
+let auth;
+let db;
 
-// Initialize Services
-export const auth = getAuth(app);
-export const db = getFirestore(app);
+try {
+    // Basic validation to prevent immediate crash if keys are missing
+    if (!firebaseConfig.apiKey) {
+        console.warn("Firebase config missing. Check .env file.");
+    } else {
+        app = initializeApp(firebaseConfig);
+        auth = getAuth(app);
+        db = getFirestore(app);
+    }
+} catch (error) {
+    console.error("Firebase initialization failed:", error);
+}
 
+export { app, auth, db };
 export default app;

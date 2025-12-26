@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
-import { useNavigate } from 'react-router-dom';
-import { Box, Button, Container, TextField, Typography, Alert, Paper } from '@mui/material';
+import { useNavigate, Link as RouterLink } from 'react-router-dom';
+import { Box, Button, Container, TextField, Typography, Alert, Paper, Link } from '@mui/material';
 
 export default function Login() {
     const [email, setEmail] = useState('');
@@ -17,10 +17,18 @@ export default function Login() {
         try {
             setError('');
             setLoading(true);
-            await login(email, password);
-            navigate('/admin/dashboard');
+            const result = await login(email, password);
+
+            // Check admin based on Email directly (fastest check)
+            const isAdmin = email.toLowerCase() === import.meta.env.VITE_ADMIN_EMAIL?.toLowerCase();
+
+            if (isAdmin) {
+                navigate('/admin/dashboard');
+            } else {
+                navigate('/profile');
+            }
         } catch {
-            setError('Failed to log in. Check your credentials.');
+            setError('فشل تسجيل الدخول. تحقق من بيانات الاعتماد.');
         }
 
         setLoading(false);
@@ -30,7 +38,7 @@ export default function Login() {
         <Container component="main" maxWidth="xs" sx={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <Paper elevation={3} sx={{ p: 4, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
                 <Typography component="h1" variant="h5" sx={{ mb: 3 }}>
-                    Admin Login
+                    تسجيل دخول المشرف
                 </Typography>
 
                 {error && <Alert severity="error" sx={{ width: '100%', mb: 2 }}>{error}</Alert>}
@@ -41,7 +49,7 @@ export default function Login() {
                         required
                         fullWidth
                         id="email"
-                        label="Email Address"
+                        label="البريد الإلكتروني"
                         name="email"
                         autoComplete="email"
                         autoFocus
@@ -53,7 +61,7 @@ export default function Login() {
                         required
                         fullWidth
                         name="password"
-                        label="Password"
+                        label="كلمة المرور"
                         type="password"
                         id="password"
                         autoComplete="current-password"
@@ -67,8 +75,13 @@ export default function Login() {
                         sx={{ mt: 3, mb: 2 }}
                         disabled={loading}
                     >
-                        {loading ? 'Logging in...' : 'Sign In'}
+                        {loading ? 'جاري الدخول...' : 'تسجيل الدخول'}
                     </Button>
+                    <Box sx={{ textAlign: 'center', mt: 2 }}>
+                        <Link component={RouterLink} to="/signup" variant="body2">
+                            ليس لديك حساب؟ إنشاء حساب جديد
+                        </Link>
+                    </Box>
                 </Box>
             </Paper>
         </Container>

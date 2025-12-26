@@ -5,4 +5,7 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   base: '/KOON.BAU.JO/',
+  server: {
+    port: 3000,
+  },
 })

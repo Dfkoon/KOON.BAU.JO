@@ -16,7 +16,7 @@ const SuccessStories = () => {
                 </Typography>
 
                 <Grid container spacing={4} justifyContent="center">
-                    <Grid item xs={12}>
+                    <Grid size={{ xs: 12 }}>
                         <Card sx={{ borderRadius: 4, overflow: 'hidden', boxShadow: 3 }}>
                             <CardContent sx={{ textAlign: 'center', py: 4 }}>
                                 <Headphones sx={{ fontSize: 60, color: 'primary.main', mb: 2 }} />
@@ -33,7 +33,7 @@ const SuccessStories = () => {
                         </Card>
                     </Grid>
 
-                    <Grid item xs={12} md={6}>
+                    <Grid size={{ xs: 12, md: 6 }}>
                         <Card sx={{ height: '100%', borderRadius: 4, textAlign: 'center', p: 3, bgcolor: 'primary.light', color: 'white' }}>
                             <CardContent>
                                 <Mic sx={{ fontSize: 40, mb: 1 }} />

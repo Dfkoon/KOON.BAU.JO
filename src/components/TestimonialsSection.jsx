@@ -208,7 +208,7 @@ const TestimonialsSection = () => {
 
                     <Grid container spacing={4} justifyItems="center" justifyContent="center">
                         {partners.map((partner) => (
-                            <Grid item key={partner.id}>
+                            <Grid size="auto" key={partner.id}>
                                 <Box
                                     sx={{
                                         opacity: 0.6,

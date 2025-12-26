@@ -58,9 +58,13 @@ class ErrorBoundary extends Component {
                             تحديث الصفحة
                         </Button>
 
-                        {/* Hidden Dev Details for debugging if needed */}
-                        <Box sx={{ mt: 4, display: 'none' }}>
-                            <code>{this.state.error && this.state.error.toString()}</code>
+                        {/* Dev Details for debugging */}
+                        <Box sx={{ mt: 4, p: 2, bgcolor: 'rgba(255,0,0,0.1)', borderRadius: 2, overflow: 'auto', maxWidth: '100%' }}>
+                            <Typography variant="caption" sx={{ fontFamily: 'monospace', color: 'error.light' }}>
+                                {this.state.error && this.state.error.toString()}
+                                <br />
+                                {this.state.errorInfo && this.state.errorInfo.componentStack}
+                            </Typography>
                         </Box>
                     </Container>
                 </Box>

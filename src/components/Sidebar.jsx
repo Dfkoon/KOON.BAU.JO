@@ -15,15 +15,16 @@ const Sidebar = ({ open, onClose }) => {
         { text: t('exams'), path: '/exams' },
         { text: t('calendar'), path: '/calendar' },
         { text: t('grades'), path: '/grading-system' },
+        { text: t('studentToolsTitle'), path: '/tools' },
+        { text: t('usefulSites'), path: '/useful-sites' },
+        { text: t('askTitle'), path: '/ask' },
         { text: language === 'ar' ? 'الأخبار' : 'News', path: '/updates' },
     ];
 
     return (
         <Drawer anchor="right" open={open} onClose={onClose}>
-            <Box sx={{ width: 280, p: 2 }} role="presentation">
-                <IconButton onClick={onClose} sx={{ mb: 2 }}>
-                    <Close />
-                </IconButton>
+            <Box sx={{ width: 280, p: 2, pt: { xs: 8, md: 10 } }} role="presentation">
+                {/* Close button removed as the Hamburger button handles toggling */}
                 <List>
                     {menuItems.map((item) => (
                         <ListItem button key={item.text} onClick={() => { navigate(item.path); onClose(); }}>
