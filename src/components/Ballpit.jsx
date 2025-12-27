@@ -277,6 +277,15 @@ class X {
     }
 }
 
+const _pos = new Vector3();
+const _vel = new Vector3();
+const _otherPos = new Vector3();
+const _otherVel = new Vector3();
+const _diff = new Vector3();
+const _correction = new Vector3();
+const _velCorrection = new Vector3();
+const _zero = new Vector3(0, 0, 0);
+
 class W {
     config;
     positionData;
@@ -318,78 +327,79 @@ class W {
         let startIdx = 0;
         if (config.controlSphere0) {
             startIdx = 1;
-            const firstVec = new Vector3().fromArray(positionData, 0);
-            firstVec.lerp(center, 0.1).toArray(positionData, 0);
-            new Vector3(0, 0, 0).toArray(velocityData, 0);
+            _pos.fromArray(positionData, 0);
+            _pos.lerp(center, 0.1).toArray(positionData, 0);
+            _zero.toArray(velocityData, 0);
         }
         for (let idx = startIdx; idx < config.count; idx++) {
             const base = 3 * idx;
-            const pos = new Vector3().fromArray(positionData, base);
-            const vel = new Vector3().fromArray(velocityData, base);
-            vel.y -= deltaInfo.delta * config.gravity * sizeData[idx];
-            vel.multiplyScalar(config.friction);
-            vel.clampLength(0, config.maxVelocity);
-            pos.add(vel);
-            pos.toArray(positionData, base);
-            vel.toArray(velocityData, base);
+            _pos.fromArray(positionData, base);
+            _vel.fromArray(velocityData, base);
+            _vel.y -= deltaInfo.delta * config.gravity * sizeData[idx];
+            _vel.multiplyScalar(config.friction);
+            _vel.clampLength(0, config.maxVelocity);
+            _pos.add(_vel);
+            _pos.toArray(positionData, base);
+            _vel.toArray(velocityData, base);
         }
         for (let idx = startIdx; idx < config.count; idx++) {
             const base = 3 * idx;
-            const pos = new Vector3().fromArray(positionData, base);
-            const vel = new Vector3().fromArray(velocityData, base);
+            _pos.fromArray(positionData, base);
+            _vel.fromArray(velocityData, base);
             const radius = sizeData[idx];
             for (let jdx = idx + 1; jdx < config.count; jdx++) {
                 const otherBase = 3 * jdx;
-                const otherPos = new Vector3().fromArray(positionData, otherBase);
-                const otherVel = new Vector3().fromArray(velocityData, otherBase);
-                const diff = new Vector3().copy(otherPos).sub(pos);
-                const dist = diff.length();
+                _otherPos.fromArray(positionData, otherBase);
+                _otherVel.fromArray(velocityData, otherBase);
+                _diff.copy(_otherPos).sub(_pos);
+                const dist = _diff.length();
                 const sumRadius = radius + sizeData[jdx];
                 if (dist < sumRadius) {
                     const overlap = sumRadius - dist;
-                    const correction = diff.normalize().multiplyScalar(0.5 * overlap);
-                    const velCorrection = correction.clone().multiplyScalar(Math.max(vel.length(), 1));
-                    pos.sub(correction);
-                    vel.sub(velCorrection);
-                    pos.toArray(positionData, base);
-                    vel.toArray(velocityData, base);
-                    otherPos.add(correction);
-                    otherVel.add(correction.clone().multiplyScalar(Math.max(otherVel.length(), 1)));
-                    otherPos.toArray(positionData, otherBase);
-                    otherVel.toArray(velocityData, otherBase);
+                    _correction.copy(_diff).normalize().multiplyScalar(0.5 * overlap);
+                    _velCorrection.copy(_correction).multiplyScalar(Math.max(_vel.length(), 1));
+                    _pos.sub(_correction);
+                    _vel.sub(_velCorrection);
+                    _pos.toArray(positionData, base);
+                    _vel.toArray(velocityData, base);
+                    _otherPos.add(_correction);
+                    _otherVel.add(_velCorrection.copy(_correction).multiplyScalar(Math.max(_otherVel.length(), 1)));
+                    _otherPos.toArray(positionData, otherBase);
+                    _otherVel.toArray(velocityData, otherBase);
                 }
             }
             if (config.controlSphere0) {
-                const diff = new Vector3().copy(new Vector3().fromArray(positionData, 0)).sub(pos);
-                const d = diff.length();
+                _otherPos.fromArray(positionData, 0); // Reuse _otherPos for control sphere
+                _diff.copy(_otherPos).sub(_pos);
+                const d = _diff.length();
                 const sumRadius0 = radius + sizeData[0];
                 if (d < sumRadius0) {
-                    const correction = diff.normalize().multiplyScalar(sumRadius0 - d);
-                    const velCorrection = correction.clone().multiplyScalar(Math.max(vel.length(), 2));
-                    pos.sub(correction);
-                    vel.sub(velCorrection);
+                    _correction.copy(_diff).normalize().multiplyScalar(sumRadius0 - d);
+                    _velCorrection.copy(_correction).multiplyScalar(Math.max(_vel.length(), 2));
+                    _pos.sub(_correction);
+                    _vel.sub(_velCorrection);
                 }
             }
-            if (Math.abs(pos.x) + radius > config.maxX) {
-                pos.x = Math.sign(pos.x) * (config.maxX - radius);
-                vel.x = -vel.x * config.wallBounce;
+            if (Math.abs(_pos.x) + radius > config.maxX) {
+                _pos.x = Math.sign(_pos.x) * (config.maxX - radius);
+                _vel.x = -_vel.x * config.wallBounce;
             }
             if (config.gravity === 0) {
-                if (Math.abs(pos.y) + radius > config.maxY) {
-                    pos.y = Math.sign(pos.y) * (config.maxY - radius);
-                    vel.y = -vel.y * config.wallBounce;
+                if (Math.abs(_pos.y) + radius > config.maxY) {
+                    _pos.y = Math.sign(_pos.y) * (config.maxY - radius);
+                    _vel.y = -_vel.y * config.wallBounce;
                 }
-            } else if (pos.y - radius < -config.maxY) {
-                pos.y = -config.maxY + radius;
-                vel.y = -vel.y * config.wallBounce;
+            } else if (_pos.y - radius < -config.maxY) {
+                _pos.y = -config.maxY + radius;
+                _vel.y = -_vel.y * config.wallBounce;
             }
             const maxBoundary = Math.max(config.maxZ, config.maxSize);
-            if (Math.abs(pos.z) + radius > maxBoundary) {
-                pos.z = Math.sign(pos.z) * (config.maxZ - radius);
-                vel.z = -vel.z * config.wallBounce;
+            if (Math.abs(_pos.z) + radius > maxBoundary) {
+                _pos.z = Math.sign(_pos.z) * (config.maxZ - radius);
+                _vel.z = -_vel.z * config.wallBounce;
             }
-            pos.toArray(positionData, base);
-            vel.toArray(velocityData, base);
+            _pos.toArray(positionData, base);
+            _vel.toArray(velocityData, base);
         }
     }
 }
@@ -498,10 +508,10 @@ function createPointerData(options) {
             document.body.addEventListener('pointerleave', onPointerLeave);
             document.body.addEventListener('click', onPointerClick);
 
-            document.body.addEventListener('touchstart', onTouchStart, { passive: false });
-            document.body.addEventListener('touchmove', onTouchMove, { passive: false });
-            document.body.addEventListener('touchend', onTouchEnd, { passive: false });
-            document.body.addEventListener('touchcancel', onTouchEnd, { passive: false });
+            document.body.addEventListener('touchstart', onTouchStart, { passive: true });
+            document.body.addEventListener('touchmove', onTouchMove, { passive: true });
+            document.body.addEventListener('touchend', onTouchEnd, { passive: true });
+            document.body.addEventListener('touchcancel', onTouchEnd, { passive: true });
             globalPointerActive = true;
         }
     }
@@ -546,7 +556,6 @@ function processPointerInteraction() {
 
 function onTouchStart(e) {
     if (e.touches.length > 0) {
-        e.preventDefault();
         pointerPosition.set(e.touches[0].clientX, e.touches[0].clientY);
         for (const [elem, data] of pointerMap) {
             const rect = elem.getBoundingClientRect();
@@ -565,7 +574,6 @@ function onTouchStart(e) {
 
 function onTouchMove(e) {
     if (e.touches.length > 0) {
-        e.preventDefault();
         pointerPosition.set(e.touches[0].clientX, e.touches[0].clientY);
         for (const [elem, data] of pointerMap) {
             const rect = elem.getBoundingClientRect();
@@ -741,7 +749,7 @@ function createBallpit(canvas, config = {}) {
     const intersectionPoint = new Vector3();
     let isPaused = false;
 
-    canvas.style.touchAction = 'none';
+    canvas.style.touchAction = 'manipulation';
     canvas.style.userSelect = 'none';
     canvas.style.webkitUserSelect = 'none';
 

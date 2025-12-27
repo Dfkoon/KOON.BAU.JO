@@ -8,7 +8,7 @@ const AnimatedHero = ({ children }) => {
       <div className="card">
         <div className="ballpit-container">
           <Ballpit
-            count={typeof window !== 'undefined' && window.innerWidth < 768 ? 60 : 200}
+            count={typeof window !== 'undefined' && window.innerWidth < 768 ? 30 : 200}
             gravity={0.7}
             friction={0.8}
             wallBounce={0.95}
