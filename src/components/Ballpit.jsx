@@ -29,7 +29,7 @@ import { gsap } from 'gsap';
 // but the user provided code imports it from 'gsap/Observer'. 
 // If this fails, we might need to adjust based on installed gsap version.
 // Checking package.json, gsap is ^3.14.2.
-import { Observer } from 'gsap/Observer';
+import { Observer } from 'gsap/observer';
 
 gsap.registerPlugin(Observer);
 
@@ -501,6 +501,9 @@ function createPointerData(options) {
         onLeave: () => { },
         ...options
     };
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+    if (isMobile) return defaultData;
+
     if (!pointerMap.has(options.domElement)) {
         pointerMap.set(options.domElement, defaultData);
         if (!globalPointerActive) {

@@ -84,11 +84,7 @@ const StyledWrapper = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
-    pointer-events: none; /* Let clicks pass through to ballpit unless on buttons */
-  }
-  
-  .content > * {
-    pointer-events: auto; /* Re-enable pointer events for actual content elements */
+    pointer-events: auto; /* Ensure content is interactive */
   }
 `;
 
