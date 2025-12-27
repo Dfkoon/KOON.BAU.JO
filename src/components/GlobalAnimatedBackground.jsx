@@ -11,6 +11,7 @@ const GlobalAnimatedBackground = () => {
     const secondaryColor = isDark ? theme.palette.secondary.dark : theme.palette.secondary.light;
 
     const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+    if (isMobile) return null;
 
     // Random floating configuration
     const shapes = isMobile

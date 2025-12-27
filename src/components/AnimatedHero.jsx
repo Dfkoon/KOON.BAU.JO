@@ -8,16 +8,18 @@ const AnimatedHero = ({ children }) => {
   return (
     <StyledWrapper>
       <div className="card">
-        <div className="ballpit-container" style={{ pointerEvents: isMobile ? 'none' : 'auto' }}>
-          <Ballpit
-            count={isMobile ? 30 : 200}
-            gravity={0.7}
-            friction={0.8}
-            wallBounce={0.95}
-            followCursor={true}
-            colors={[0x81D4FA, 0xFFFFFF, 0xE1F5FE, 0x29B6F6]} // Light Blue, White, Pale Cyan, Sky Blue
-          />
-        </div>
+        {!isMobile && (
+          <div className="ballpit-container">
+            <Ballpit
+              count={200}
+              gravity={0.7}
+              friction={0.8}
+              wallBounce={0.95}
+              followCursor={true}
+              colors={[0x81D4FA, 0xFFFFFF, 0xE1F5FE, 0x29B6F6]} // Light Blue, White, Pale Cyan, Sky Blue
+            />
+          </div>
+        )}
         <div className="content">
           {children}
         </div>
