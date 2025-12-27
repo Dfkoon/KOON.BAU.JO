@@ -58,7 +58,8 @@ function App() {
             duration: 1000,
             easing: 'ease-out-cubic',
             once: false,
-            mirror: true
+            mirror: true,
+            disable: 'mobile' // Disable animations on mobile devices
         });
     }, []);
 

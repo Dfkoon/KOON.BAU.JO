@@ -122,53 +122,55 @@ const UpcomingEvents = () => {
             }}
         >
             {/* Animated Background Circles */}
-            <Box sx={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0, pointerEvents: 'none', overflow: 'hidden' }}>
-                <motion.div
-                    animate={{
-                        x: [0, 100, -100, 0],
-                        y: [0, -100, 100, 0],
-                        scale: [1, 1.2, 0.9, 1],
-                    }}
-                    transition={{
-                        duration: 20,
-                        repeat: Infinity,
-                        ease: "linear"
-                    }}
-                    style={{
-                        position: 'absolute',
-                        top: '10%',
-                        left: '10%',
-                        width: '300px',
-                        height: '300px',
-                        borderRadius: '50%',
-                        background: 'rgba(56, 189, 248, 0.1)', // Light Sky Blue
-                        filter: 'blur(50px)',
-                    }}
-                />
-                <motion.div
-                    animate={{
-                        x: [0, -150, 150, 0],
-                        y: [0, 150, -150, 0],
-                        scale: [1, 1.1, 0.8, 1],
-                    }}
-                    transition={{
-                        duration: 25,
-                        repeat: Infinity,
-                        ease: "linear",
-                        delay: 2
-                    }}
-                    style={{
-                        position: 'absolute',
-                        bottom: '20%',
-                        right: '10%',
-                        width: '400px',
-                        height: '400px',
-                        borderRadius: '50%',
-                        background: 'rgba(76, 175, 80, 0.08)', // Light Green
-                        filter: 'blur(60px)',
-                    }}
-                />
-            </Box>
+            {!isMobile && (
+                <Box sx={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0, pointerEvents: 'none', overflow: 'hidden' }}>
+                    <motion.div
+                        animate={{
+                            x: [0, 100, -100, 0],
+                            y: [0, -100, 100, 0],
+                            scale: [1, 1.2, 0.9, 1],
+                        }}
+                        transition={{
+                            duration: 20,
+                            repeat: Infinity,
+                            ease: "linear"
+                        }}
+                        style={{
+                            position: 'absolute',
+                            top: '10%',
+                            left: '10%',
+                            width: '300px',
+                            height: '300px',
+                            borderRadius: '50%',
+                            background: 'rgba(56, 189, 248, 0.1)', // Light Sky Blue
+                            filter: 'blur(50px)',
+                        }}
+                    />
+                    <motion.div
+                        animate={{
+                            x: [0, -150, 150, 0],
+                            y: [0, 150, -150, 0],
+                            scale: [1, 1.1, 0.8, 1],
+                        }}
+                        transition={{
+                            duration: 25,
+                            repeat: Infinity,
+                            ease: "linear",
+                            delay: 2
+                        }}
+                        style={{
+                            position: 'absolute',
+                            bottom: '20%',
+                            right: '10%',
+                            width: '400px',
+                            height: '400px',
+                            borderRadius: '50%',
+                            background: 'rgba(76, 175, 80, 0.08)', // Light Green
+                            filter: 'blur(60px)',
+                        }}
+                    />
+                </Box>
+            )}
 
             <Container sx={{ position: 'relative', zIndex: 1 }}>
 

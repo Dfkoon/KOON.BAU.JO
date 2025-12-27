@@ -39,6 +39,9 @@ const initialTestimonials = [
 ];
 
 function SplitText({ text }) {
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+    if (isMobile) return <span>{text}</span>;
+
     const words = text.split(" ");
     return (
         <span style={{ display: "inline" }}>
@@ -63,6 +66,7 @@ function SplitText({ text }) {
 
 const CleanTestimonials = () => {
     const theme = useTheme();
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
     const [activeIndex, setActiveIndex] = useState(0);
     const [isHovered, setIsHovered] = useState(false);
     const [testimonials, setTestimonials] = useState(initialTestimonials);
@@ -114,62 +118,64 @@ const CleanTestimonials = () => {
                 width: "100%",
                 maxWidth: "md",
                 mx: "auto",
-                py: 15,
+                py: isMobile ? 8 : 15,
                 px: 4,
-                cursor: "none",
+                cursor: isMobile ? "auto" : "none",
                 bgcolor: "background.default",
                 color: "text.primary",
                 overflow: 'hidden',
                 direction: 'rtl' // Ensure Arabic layout
             }}
-            onMouseMove={handleMouseMove}
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
+            onMouseMove={isMobile ? undefined : handleMouseMove}
+            onMouseEnter={isMobile ? undefined : () => setIsHovered(true)}
+            onMouseLeave={isMobile ? undefined : () => setIsHovered(false)}
             onClick={handleNext}
         >
             {/* Custom Magnetic Cursor */}
-            <motion.div
-                style={{
-                    position: "absolute",
-                    zIndex: 50,
-                    mixBlendMode: theme.palette.mode === 'dark' ? 'difference' : 'normal',
-                    pointerEvents: "none",
-                    x: cursorX,
-                    y: cursorY,
-                    translateX: "-50%",
-                    translateY: "-50%",
-                }}
-            >
+            {!isMobile && (
                 <motion.div
-                    animate={{
-                        width: isHovered ? 80 : 0,
-                        height: isHovered ? 80 : 0,
-                        opacity: isHovered ? 1 : 0,
-                    }}
-                    transition={{ type: "spring", damping: 20, stiffness: 200 }}
                     style={{
-                        borderRadius: "50%",
-                        backgroundColor: theme.palette.text.primary,
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
+                        position: "absolute",
+                        zIndex: 50,
+                        mixBlendMode: theme.palette.mode === 'dark' ? 'difference' : 'normal',
+                        pointerEvents: "none",
+                        x: cursorX,
+                        y: cursorY,
+                        translateX: "-50%",
+                        translateY: "-50%",
                     }}
                 >
-                    <motion.span
-                        animate={{ opacity: isHovered ? 1 : 0 }}
-                        transition={{ delay: 0.1 }}
+                    <motion.div
+                        animate={{
+                            width: isHovered ? 80 : 0,
+                            height: isHovered ? 80 : 0,
+                            opacity: isHovered ? 1 : 0,
+                        }}
+                        transition={{ type: "spring", damping: 20, stiffness: 200 }}
                         style={{
-                            color: theme.palette.background.default,
-                            fontSize: "0.75rem",
-                            fontWeight: 500,
-                            letterSpacing: "0.05em",
-                            textTransform: "uppercase",
+                            borderRadius: "50%",
+                            backgroundColor: theme.palette.text.primary,
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
                         }}
                     >
-                        التالي
-                    </motion.span>
+                        <motion.span
+                            animate={{ opacity: isHovered ? 1 : 0 }}
+                            transition={{ delay: 0.1 }}
+                            style={{
+                                color: theme.palette.background.default,
+                                fontSize: "0.75rem",
+                                fontWeight: 500,
+                                letterSpacing: "0.05em",
+                                textTransform: "uppercase",
+                            }}
+                        >
+                            التالي
+                        </motion.span>
+                    </motion.div>
                 </motion.div>
-            </motion.div>
+            )}
 
             {/* Floating Index Indicator */}
             <motion.div
