@@ -3,12 +3,14 @@ import styled from '@emotion/styled';
 import Ballpit from './Ballpit';
 
 const AnimatedHero = ({ children }) => {
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+
   return (
     <StyledWrapper>
       <div className="card">
-        <div className="ballpit-container">
+        <div className="ballpit-container" style={{ pointerEvents: isMobile ? 'none' : 'auto' }}>
           <Ballpit
-            count={typeof window !== 'undefined' && window.innerWidth < 768 ? 30 : 200}
+            count={isMobile ? 30 : 200}
             gravity={0.7}
             friction={0.8}
             wallBounce={0.95}

@@ -12,8 +12,6 @@ export function PixelCursorTrail() {
     const cursorColor = theme.palette.mode === 'dark' ? '#ffffff' : '#000000';
     const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
     const [pixels, setPixels] = useState([]);
-
-    if (isMobile) return null;
     const pixelIdRef = useRef(0);
     const lastPositionRef = useRef({ x: 0, y: 0 });
     const animationRef = useRef();
@@ -68,6 +66,8 @@ export function PixelCursorTrail() {
             }
         };
     }, [createPixel]);
+
+    if (isMobile) return null;
 
     return (
         <div
