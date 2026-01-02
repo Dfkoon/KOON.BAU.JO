@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إضافة النشرة الإخبارية</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            color: #667eea;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        button {
+            width: 100%;
+            padding: 20px;
+            font-size: 20px;
+            font-weight: bold;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 20px;
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .status {
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            text-align: center;
+            font-size: 18px;
+            display: none;
+        }
+
+        .success {
+            background: #d4edda;
+            color: #155724;
+            border: 2px solid #c3e6cb;
+        }
+
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 2px solid #f5c6cb;
+        }
+
+        .info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 2px solid #bee5eb;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>🎓 إضافة النشرة الإخبارية للربع الرابع 2025</h1>
+
+        <div class="info">
+            <strong>📌 تعليمات:</strong><br>
+            اضغط على الزر أدناه لإضافة الخبر مباشرة إلى قاعدة البيانات
+        </div>
+
+        <button id="addBtn" onclick="addNewsletter()">
+            ✨ إضافة النشرة الإخبارية الآن
+        </button>
+
+        <div id="status" class="status"></div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getFirestore, collection, addDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+
+        // Firebase config
+        const firebaseConfig = {
+            apiKey: "AIzaSyCwEYy_wNXXMvq_jDHD-8xvD9OZEVUWHA",
+            authDomain: "koon-609da.firebaseapp.com",
+            projectId: "koon-609da",
+            storageBucket: "koon-609da.firebasestorage.app",
+            messagingSenderId: "999499144055",
+            appId: "1:999499144055:web:4a4b598de1bd3f5ab05f72"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // Newsletter data
+        const newsletterData = {
+            title: {
+                ar: "النشرة الإخبارية للربع الرابع للعام 2025",
+                en: "Newsletter for Q4 2025"
+            },
+            content: {
+                ar: `<p><strong>يسر دائرة الإعلام وبالتعاون مع مركز اللغات الإعلان عن صدور النشرة الإخبارية باللغتين العربية والإنجليزية للربع الرابع لشهور أيلول، تشرين الأول، تشرين الثاني، كانون الأول</strong></p>
+<p>لمتابعة النشرة الإخبارية، يُرجى زيارة الرابط التالي:</p>
+<p><a href="https://www.bau.edu.jo/News/NewsDetail.aspx?news_id=16905" target="_blank" rel="noopener noreferrer">https://www.bau.edu.jo/News/NewsDetail.aspx?news_id=16905</a></p>
+<p style="margin-top: 20px;"><strong>#جامعة_البلقاء_التطبيقية</strong></p>
+<p><strong>#دائرة_الإعلام</strong></p>`,
+                en: `<p><strong>The Media Department, in cooperation with the Languages Center, is pleased to announce the release of the newsletter in both Arabic and English for the fourth quarter covering September, October, November, and December</strong></p>
+<p>To view the newsletter, please visit the following link:</p>
+<p><a href="https://www.bau.edu.jo/News/NewsDetail.aspx?news_id=16905" target="_blank" rel="noopener noreferrer">https://www.bau.edu.jo/News/NewsDetail.aspx?news_id=16905</a></p>
+<p style="margin-top: 20px;"><strong>#Al_Balqa_Applied_University</strong></p>
+<p><strong>#Media_Department</strong></p>`
+            },
+            badge: {
+                ar: "جديد",
+                en: "New"
+            },
+            badgeColor: "#1976d2",
+            icon: "info",
+            category: "general",
+            date: "2026-01-02"
+        };
+
+        // Make function global
+        window.addNewsletter = async function () {
+            const btn = document.getElementById('addBtn');
+            const status = document.getElementById('status');
+
+            btn.disabled = true;
+            btn.textContent = '⏳ جاري الإضافة...';
+            status.style.display = 'none';
+
+            try {
+                const docRef = await addDoc(collection(db, 'updates'), {
+                    ...newsletterData,
+                    createdAt: serverTimestamp()
+                });
+
+                status.className = 'status success';
+                status.style.display = 'block';
+                status.innerHTML = `
+                    <strong>✅ تم بنجاح!</strong><br>
+                    تم إضافة النشرة الإخبارية بنجاح<br>
+                    <small>ID: ${docRef.id}</small><br><br>
+                    <a href="http://localhost:3000/updates" style="color: #155724; text-decoration: underline;">
+                        اضغط هنا لمشاهدة الخبر
+                    </a>
+                `;
+                btn.textContent = '✅ تمت الإضافة';
+
+            } catch (error) {
+                console.error('Error:', error);
+                status.className = 'status error';
+                status.style.display = 'block';
+                status.innerHTML = `
+                    <strong>❌ حدث خطأ!</strong><br>
+                    ${error.message}
+                `;
+                btn.disabled = false;
+                btn.textContent = '🔄 إعادة المحاولة';
+            }
+        };
+    </script>
+</body>
+
+</html>
